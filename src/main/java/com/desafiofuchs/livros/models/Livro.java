@@ -1,14 +1,17 @@
 package com.desafiofuchs.livros.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,9 +28,6 @@ public class Livro {
 	private Integer id;
 	public String name;
 	
-	@ManyToOne
-	@JoinColumn(name = "autorid", insertable = false, updatable = false)
-	public Autor autor;	
-	
-	private Integer autorid;
+	@ManyToMany(mappedBy="livros", cascade=CascadeType.ALL)
+	public List<Autor> autores = new ArrayList<Autor>(); 
 }
